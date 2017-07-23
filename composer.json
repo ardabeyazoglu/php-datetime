@@ -1,0 +1,32 @@
+{
+  "name": "ardabeyazoglu/datetime",
+  "type": "library",
+  "description": "Extends the native DateTime class adding useful features, shorthand methods and locale support",
+  "keywords": ["datetime", "time", "date", "timezone", "locale"],
+  "homepage": "http://icanboogie.org/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Arda Beyazoglu",
+      "email": "arda@beyazoglu.com",
+      "role" : "Developer"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/ardabeyazoglu/php-datetime",
+    "issues": "https://github.com/ardabeyazoglu/php-datetime/issues"
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "ext-intl": "*"
+  },
+  "require-dev": {
+    "victorjonsson/markdowndocs": "^1.3",
+    "phpunit/phpunit": "4.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "DateTimeImproved\\": "src/"
+    }
+  }
+}
