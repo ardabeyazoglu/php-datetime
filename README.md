@@ -2,7 +2,6 @@
 
 # About
 Improved DateTime functionality for php by extending native DateTime and DateTimeZone classes. You can use shorthand methods for various operations. Also, different locales are supported, thanks to `Intl` extension.
-Feel free to create issues and contribute.
 
 # Installation
 

@@ -367,6 +367,10 @@ class DateTime extends \DateTime implements \JsonSerializable {
      * @return int
      */
     public static function getDaysOfMonth($month, $year){
+        if(empty($month) || empty($year)){
+            throw new \InvalidArgumentException("Invalid month=$month, year=$year for cal_days_in_month");
+        }
+
         if(!array_key_exists($year . $month, self::$_mcache)){
             self::$_mcache[$year . $month] = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         }
@@ -473,9 +477,19 @@ class DateTime extends \DateTime implements \JsonSerializable {
         $month = $this->getMonth();
         $year = $this->getYear();
 
-        if($i + $month > 0){
-            $newYear = floor(($month + $i) / 12) + $year;
-            $newMonth = ($month + $i) % 12;
+        $n = $i + $month;
+
+        if($n > 12){
+            $newYear = floor($n / 12) + $year;
+            $newMonth = $n % 12;
+            if($newMonth === 0){
+                $newMonth = 12;
+                $newYear--;
+            }
+        }
+        else if($n > 0){
+            $newYear = floor($n / 13) + $year;
+            $newMonth = $n % 13;
         }
         else{
             $newYear = $year - floor(abs($month + $i) / 12) - 1;
@@ -558,7 +572,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
      */
     public function setWeekday($i){
         if($i > 7 || $i < 1){
-            throw new \Exception("Weekday can only be from 1 to 7");
+            throw new \InvalidArgumentException("Weekday can only be from 1 to 7. Given i=$i.");
         }
 
         $weekday = $this->getWeekday();
@@ -575,6 +589,9 @@ class DateTime extends \DateTime implements \JsonSerializable {
      * @return $this
      */
     public function setMonth($i){
+        if($i > 12 || $i < 1){
+            throw new \InvalidArgumentException("Weekday can only be from 1 to 12. Given i=$i.");
+        }
         return $this->setDate($this->getYear(), $i, $this->getDay());
     }
 
@@ -649,6 +666,14 @@ class DateTime extends \DateTime implements \JsonSerializable {
      */
     public function getDayOfWeek(){
         return $this->getWeekday();
+    }
+
+    /**
+     * get day of year (1-365)
+     * @return int
+     */
+    public function getDayOfYear(){
+        return (int)$this->format("z") + 1;
     }
 
     /**
