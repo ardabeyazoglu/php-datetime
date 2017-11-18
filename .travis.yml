@@ -2,13 +2,13 @@ sudo: required
 dist: trusty
 language: php
 php:
+  - '5.5'
   - '5.6'
   - '7.0'
   - '7.1'
 
 before_script:
   - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then sudo apt-get -y install php5-intl; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7" ]]; then sudo pecl install -y intl; fi
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source --dev
 
