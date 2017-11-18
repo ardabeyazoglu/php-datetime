@@ -8,8 +8,8 @@ php:
   - hhvm
 
 before_script:
-  - pecl channel-update pecl.php.net
-  - printf "\n" | pecl install intl
+  - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then apt-get install php5-intl; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then apt-get install php-intl; fi
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source --dev
 
