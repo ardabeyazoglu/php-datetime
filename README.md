@@ -1,8 +1,7 @@
-[![Latest Stable Version](https://poser.pugx.org/ardabeyazoglu/datetime/v/stable)](https://packagist.org/packages/ardabeyazoglu/datetime) [![License](https://poser.pugx.org/ardabeyazoglu/datetime/license)](https://packagist.org/packages/ardabeyazoglu/datetime)
+[![Latest Stable Version](https://poser.pugx.org/ardabeyazoglu/datetime/v/stable)](https://packagist.org/packages/ardabeyazoglu/datetime) [![License](https://poser.pugx.org/ardabeyazoglu/datetime/license)](https://packagist.org/packages/ardabeyazoglu/datetime) [![Build Status](https://travis-ci.org/ardabeyazoglu/php-datetime.svg?branch=master)](https://travis-ci.org/ardabeyazoglu/php-datetime)
 
 # About
 Improved DateTime functionality for php by extending native DateTime and DateTimeZone classes. You can use shorthand methods for various operations. Also, different locales are supported, thanks to `Intl` extension.
-Feel free to create issues and contribute.
 
 # Installation
 
@@ -67,7 +66,3 @@ echo DateTime::now("Europe/Istanbul");                      // Sun, 23 Jul 2017 
 ```
 
 * Check out the [docs](https://github.com/ardabeyazoglu/php-datetime/tree/master/docs) for all methods.
-
-# ToDo
-
-- Unit tests
