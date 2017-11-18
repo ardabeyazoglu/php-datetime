@@ -8,7 +8,8 @@ php:
   - hhvm
 
 before_script:
-  - pecl -q install intl
+  - pecl channel-update pecl.php.net
+  - printf "\n" | pecl install intl
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source --dev
 
