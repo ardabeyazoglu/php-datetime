@@ -80,6 +80,10 @@ class DateTime extends \DateTime implements \JsonSerializable {
                 $m = $matches[2];
                 $time = DateTime::now($timezone)->modify("$i $m");
             }
+            else if(preg_match("/([0-9]{2})[.\/\-]([0-9]{2})[.\/\-]([0-9]{4})/", $time, $matches) > 0){
+                // force "d/m/Y" instead of "Y/m/d"
+                $time = str_replace($matches[0], $matches[3] . "-" . $matches[2] . "-" . $matches[1], $time);
+            }
         }
 
         try {
@@ -114,6 +118,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * @param string|DateTimeZone|\DateTimeZone $zone
      * @return DateTime
+     * @throws \Exception
      */
     public static function now($zone = null){
         return new self("now", $zone);
@@ -122,6 +127,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * @param string|DateTimeZone|\DateTimeZone $zone
      * @return DateTime
+     * @throws \Exception
      */
     public static function yesterday($zone = null){
         return new self("yesterday", $zone);
@@ -130,6 +136,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * @param string|DateTimeZone|\DateTimeZone $zone
      * @return DateTime
+     * @throws \Exception
      */
     public static function tomorrow($zone = null){
         return new self("tomorrow", $zone);
@@ -155,13 +162,14 @@ class DateTime extends \DateTime implements \JsonSerializable {
             }
         }
 
-        if(is_null($locale)) $locale = $this->_locale;
+        if(is_null($locale)){
+            $locale = $this->_locale;
+        }
 
         if($useIsoFormat || (!is_null($locale) && preg_match("/[DlFMr]+/", $format, $matches) > 0)){
             // try to localize if and only if locale is specified and format contains localizable modifiers (or iso format modifiers are used)
-
             $format = !$useIsoFormat ? $this->_convertPhpToIsoFormat($format) : $format;
-            $str = $this->getFormatter()->formatObject($this, $format, $locale);
+            $str = \IntlDateFormatter::formatObject($this, $format, $locale);
         }
         else{
             $str = parent::format($format);
@@ -685,7 +693,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     }
 
     /**
-     * get 2-digit month
+     * get month index (1-12)
      * @return int
      */
     public function getMonth(){
@@ -701,6 +709,15 @@ class DateTime extends \DateTime implements \JsonSerializable {
     }
 
     /**
+     * get current quarter index (1-4)
+     * @return float
+     */
+    public function getQuarter(){
+        $month = $this->getMonth();
+        return ceil($month / 3);
+    }
+
+    /**
      * get difference in days
      * @param \DateTime $dt
      * @return int
@@ -708,6 +725,30 @@ class DateTime extends \DateTime implements \JsonSerializable {
     public function diffDays(\DateTime $dt){
         $interval = $this->diff($dt);
         return (int)$interval->format("%R%a");
+    }
+
+    /**
+     * set end of quarter
+     * @param bool $changeTime
+     * @return DateTime
+     * @throws \Exception
+     */
+    public function setEndOfQuarter($changeTime = true){
+        $quarter = $this->getQuarter();
+        $month = $quarter * 3;
+        return $this->setMonth($month)->setEndOfMonth($changeTime);
+    }
+
+    /**
+     * set beginning of quarter
+     * @param bool $changeTime
+     * @return DateTime
+     * @throws \Exception
+     */
+    public function setBeginningOfQuarter($changeTime = true){
+        $quarter = $this->getQuarter();
+        $month = ($quarter * 3) - 2;
+        return $this->setMonth($month)->setBeginningOfMonth($changeTime);
     }
 
     /**
@@ -733,6 +774,30 @@ class DateTime extends \DateTime implements \JsonSerializable {
     }
 
     /**
+     * set end of week
+     * @param bool $changeTime
+     * @return DateTime
+     * @throws \Exception
+     */
+    public function setEndOfWeek($changeTime = true){
+        $this->setWeekday(7);
+        if($changeTime) $this->setTime(23, 59, 59);
+        return $this;
+    }
+
+    /**
+     * set beginning of month
+     * @param bool $changeTime
+     * @return DateTime
+     * @throws \Exception
+     */
+    public function setBeginningOfWeek($changeTime = true){
+        $this->setWeekday(1);
+        if($changeTime) $this->setTime(0, 0, 0);
+        return $this;
+    }
+
+    /**
      * set end of month
      * @return DateTime
      */
@@ -753,6 +818,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * is active day today ?
      * @return bool
+     * @throws \Exception
      */
     public function isToday(){
         return $this->format("Ymd") == (new self("now", $this->getTimezone()))->format("Ymd");
@@ -761,6 +827,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * if it is this week between Mon-Sun
      * @return bool
+     * @throws \Exception
      */
     public function isCurrentWeek(){
         $dtWeek = $this->getYear() . $this->getWeek();
@@ -774,6 +841,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * if it is this month
      * @return bool
+     * @throws \Exception
      */
     public function isCurrentMonth(){
         $dtMonth = $this->getYear() . $this->getMonth();
@@ -787,6 +855,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * if it is this year
      * @return bool
+     * @throws \Exception
      */
     public function isCurrentYear(){
         return $this->getYear() === DateTime::now($this->getTimezone())->getYear();
@@ -841,6 +910,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * is yesterday
      * @return bool
+     * @throws \Exception
      */
     public function isYesterday(){
         return intval($this->format("Ymd")) === intval(self::yesterday()->format("Ymd"));
@@ -849,6 +919,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
     /**
      * is tomorrow
      * @return bool
+     * @throws \Exception
      */
     public function isTomorrow(){
         return intval($this->format("Ymd")) === intval(self::tomorrow()->format("Ymd"));
@@ -888,5 +959,3 @@ class DateTime extends \DateTime implements \JsonSerializable {
         ];
     }
 }
-
-?>

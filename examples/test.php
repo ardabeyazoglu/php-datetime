@@ -1,5 +1,7 @@
 <?php
 
+chdir(__DIR__);
+
 include_once '../vendor/autoload.php';
 
 use \DateTimeImproved\DateTime;
@@ -63,8 +65,12 @@ printExample('echo $date->getMonthName();');
 printExample('echo $date->diffDays(DateTime::yesterday());');
 printExample('echo $date->setBeginningOfDay();');
 printExample('echo $date->setEndOfDay();');
+printExample('echo $date->setBeginningOfWeek();');
+printExample('echo $date->setEndOfWeek();');
 printExample('echo $date->setBeginningOfMonth(true);');
 printExample('echo $date->setEndOfMonth();');
+printExample('echo $date->setBeginningOfQuarter(true);');
+printExample('echo $date->setEndOfQuarter();');
 printExample('echo json_encode($date);');
 printExample('echo DateTime::getDaysOfMonth(2, 2017);');
 printExample('echo DateTime::yesterday();');

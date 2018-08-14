@@ -53,10 +53,14 @@ echo $date->getWeekday();                                   // 5
 echo $date->getDayName();                                   // Friday
 echo $date->getMonthName();                                 // November
 echo $date->diffDays(DateTime::yesterday());                // -474
-echo $date->setBeginningOfDay();                            // Fri, 09 Nov 2018 00:00:00 +0000
-echo $date->setEndOfDay();                                  // Fri, 09 Nov 2018 23:59:59 +0000
-echo $date->setBeginningOfMonth(true);                      // Thu, 01 Nov 2018 00:00:00 +0000
-echo $date->setEndOfMonth();                                // Fri, 30 Nov 2018 23:59:59 +0000
+echo $date->setBeginningOfDay();                            // Sat, 30 Nov 2019 00:00:00 +0000
+echo $date->setEndOfDay();                                  // Sat, 30 Nov 2019 23:59:59 +0000
+echo $date->setBeginningOfWeek();                           // Mon, 25 Nov 2019 00:00:00 +0000
+echo $date->setEndOfWeek();                                 // Sun, 01 Dec 2019 23:59:59 +0000
+echo $date->setBeginningOfMonth(true);                      // Sun, 01 Dec 2019 00:00:00 +0000
+echo $date->setEndOfMonth();                                // Tue, 31 Dec 2019 23:59:59 +0000
+echo $date->setBeginningOfQuarter(true);                    // Tue, 01 Oct 2019 00:00:00 +0000
+echo $date->setEndOfQuarter();                              // Tue, 31 Dec 2019 23:59:59 +0000
 echo json_encode($date);                                    // {"datetime":"2018-11-30T23:59:59+00:00","timezone":{"name":"UTC","location":{"country_code":"??","latitude":0,"longitude":0,"comments":""}},"locale":"en_EN"}
 echo DateTime::getDaysOfMonth(2, 2017);                     // 28
 echo DateTime::yesterday();                                 // Sat, 22 Jul 2017 20:22:33 +0000

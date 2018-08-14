@@ -1,7 +1,7 @@
 ## Table of contents
 
-- [\DateTimeImproved\DateTimeZone](#class-datetimeImproveddatetimezone)
-- [\DateTimeImproved\DateTime](#class-datetimeImproveddatetime)
+- [\DateTimeImproved\DateTimeZone](#class-datetimeimproveddatetimezone)
+- [\DateTimeImproved\DateTime](#class-datetimeimproveddatetime)
 
 <hr />
 
@@ -47,15 +47,17 @@
 | public | <strong>getDay()</strong> : <em>int</em><br /><em>get 2-digit day</em> |
 | public | <strong>getDayName()</strong> : <em>string</em><br /><em>get day name</em> |
 | public | <strong>getDayOfWeek()</strong> : <em>int</em><br /><em>get week day no (1-7)</em> |
+| public | <strong>getDayOfYear()</strong> : <em>int</em><br /><em>get day of year (1-365)</em> |
 | public static | <strong>getDaysOfMonth(</strong><em>mixed</em> <strong>$month</strong>, <em>mixed</em> <strong>$year</strong>)</strong> : <em>int</em><br /><em>get maximum days of a given year and month</em> |
-| public | <strong>getFormatter()</strong> : <em>[\IntlDateFormatter](http://php.net/manual/en/class.Intldateformatter.php)</em><br /><em>get locale formatter</em> |
+| public | <strong>getFormatter()</strong> : <em>[\IntlDateFormatter](http://php.net/manual/en/class.intldateformatter.php)</em><br /><em>get locale formatter</em> |
 | public | <strong>getFull()</strong> : <em>string</em><br /><em>formats datetime in RFC2822 format (e.g. Sun, 23 Jul 2017 12:04:32 +0200)</em> |
 | public | <strong>getHour()</strong> : <em>int</em><br /><em>get 2-digit hours</em> |
 | public | <strong>getIso()</strong> : <em>string</em><br /><em>formats datetime in ISO8601 format (2017-07-23T12:06:33+0200)</em> |
 | public | <strong>getLocale()</strong> : <em>string</em><br /><em>get current locale</em> |
 | public | <strong>getMinute()</strong> : <em>int</em><br /><em>get 2-digit minutes</em> |
-| public | <strong>getMonth()</strong> : <em>int</em><br /><em>get 2-digit month</em> |
+| public | <strong>getMonth()</strong> : <em>int</em><br /><em>get month index (1-12)</em> |
 | public | <strong>getMonthName()</strong> : <em>string</em><br /><em>get month name</em> |
+| public | <strong>getQuarter()</strong> : <em>float</em><br /><em>get current quarter index (1-4)</em> |
 | public | <strong>getSecond()</strong> : <em>int</em><br /><em>get 2-digit seconds</em> |
 | public | <strong>getTimezone()</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTimeZone</em><br /><em>get timezone object</em> |
 | public | <strong>getWeek()</strong> : <em>int</em><br /><em>get week</em> |
@@ -75,9 +77,13 @@
 | public static | <strong>now(</strong><em>string/[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTimeZone/[\DateTimeZone](http://php.net/manual/en/class.datetimezone.php)</em> <strong>$zone=null</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em> |
 | public | <strong>setBeginningOfDay()</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em><br /><em>set end of month</em> |
 | public | <strong>setBeginningOfMonth(</strong><em>bool</em> <strong>$changeTime=true</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em><br /><em>set beginning of month</em> |
+| public | <strong>setBeginningOfQuarter(</strong><em>bool</em> <strong>$changeTime=true</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em><br /><em>set beginning of quarter</em> |
+| public | <strong>setBeginningOfWeek(</strong><em>bool</em> <strong>$changeTime=true</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em><br /><em>set beginning of month</em> |
 | public | <strong>setDay(</strong><em>mixed</em> <strong>$i</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\$this</em><br /><em>set day</em> |
 | public | <strong>setEndOfDay()</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em><br /><em>set end of month</em> |
 | public | <strong>setEndOfMonth(</strong><em>bool</em> <strong>$changeTime=true</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em><br /><em>set end of month</em> |
+| public | <strong>setEndOfQuarter(</strong><em>bool</em> <strong>$changeTime=true</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em><br /><em>set end of quarter</em> |
+| public | <strong>setEndOfWeek(</strong><em>bool</em> <strong>$changeTime=true</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\DateTime</em><br /><em>set end of week</em> |
 | public | <strong>setFormatter(</strong><em>string</em> <strong>$locale=null</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\$this</em><br /><em>set locale formatter</em> |
 | public | <strong>setHour(</strong><em>mixed</em> <strong>$i</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\$this</em><br /><em>set hour</em> |
 | public | <strong>setLocale(</strong><em>string</em> <strong>$locale</strong>)</strong> : <em>[\DateTime](http://php.net/manual/en/class.datetime.php)Improved\$this</em><br /><em>set locale for the date</em> |
