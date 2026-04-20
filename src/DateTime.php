@@ -150,6 +150,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
      * @param bool $useIsoFormat
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function format($format, $zone = null, $locale = null, $useIsoFormat = false){
         $timezone = $this->getTimezone();
 
@@ -324,6 +325,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
      * @param DateTimeZone|string $timezone
      * @return $this
      */
+    #[\ReturnTypeWillChange]
     public function setTimezone($timezone){
         try {
             if(is_string($timezone)){
@@ -343,6 +345,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
      * get timezone object
      * @return DateTimeZone
      */
+    #[\ReturnTypeWillChange]
     public function getTimezone(){
         $tz = parent::getTimezone();
         if(!($tz instanceof DateTimeZone)){
@@ -940,6 +943,7 @@ class DateTime extends \DateTime implements \JsonSerializable {
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize(){
         return [
             "datetime" => $this->format(self::ATOM),

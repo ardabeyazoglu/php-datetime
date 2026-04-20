@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-        colors="true"
-        processIsolation="false"
-        stopOnFailure="false"
->
-    <testsuites>
-        <testsuite name="Library Test Suite">
-            <directory>./tests/</directory>
-        </testsuite>
-    </testsuites>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+<phpunit colors="true" processIsolation="false" stopOnFailure="false" cacheDirectory=".phpunit.cache">
+  <testsuites>
+    <testsuite name="Library Test Suite">
+      <directory>./tests/</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
 </phpunit>

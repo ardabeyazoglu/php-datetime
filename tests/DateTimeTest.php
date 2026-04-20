@@ -142,13 +142,17 @@ final class DateTimeTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($d->getDay() === 30);
     }
 
-    #[DataProvider('providerTestMonth')]
+    public static function providerValidMonths(){
+        return [
+            [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12]
+        ];
+    }
+
+    #[DataProvider('providerValidMonths')]
     public function testSetMonth($i){
-        if($i <= 12){
-            $d = new DateTime();
-            $d->setMonth($i);
-            $this->assertTrue($d->getMonth() === $i);
-        }
+        $d = new DateTime();
+        $d->setMonth($i);
+        $this->assertTrue($d->getMonth() === $i);
     }
 
     public function testSetYear(){
