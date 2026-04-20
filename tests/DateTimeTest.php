@@ -1,9 +1,10 @@
 <?php
 
 use DateTimeImproved\DateTime;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 
-final class DateTimeTest extends \PHPUnit_Framework_TestCase {
+final class DateTimeTest extends \PHPUnit\Framework\TestCase {
 
     public function testNow(){
         $this->assertTrue(time() === DateTime::now()->getTimestamp());
@@ -83,7 +84,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase {
      * data provider for month tests
      * @return array
      */
-    public function providerTestMonth(){
+    public static function providerTestMonth(){
         return array(
             [1], [2], [3], [4], [5], [6], [7], [8], [9], [10],
             [11], [12], [13], [14], [15], [16], [17], [18], [19],
@@ -91,10 +92,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase {
         );
     }
 
-    /**
-     * @dataProvider providerTestMonth
-     * @param $i
-     */
+    #[DataProvider('providerTestMonth')]
     public function testAddMonth($i){
         $d = new DateTime();
         $t1 = date("Ymd", strtotime("$i month"));
@@ -103,10 +101,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($t1, $t2,"$t1 == $t2");
     }
 
-    /**
-     * @dataProvider providerTestMonth
-     * @param $i
-     */
+    #[DataProvider('providerTestMonth')]
     public function testSubMonth($i){
         $d = new DateTime();
         $t1 = date("Ymd", strtotime("-$i month"));
@@ -115,10 +110,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($t1, $t2,"$t1 == $t2");
     }
 
-    /**
-     * @dataProvider providerTestMonth
-     * @param $i
-     */
+    #[DataProvider('providerTestMonth')]
     public function testAddYear($i){
         $d = new DateTime();
         $t1 = date("Ym", strtotime("$i year"));
@@ -131,16 +123,13 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase {
      * data provider for weekdays
      * @return array
      */
-    public function providerTestWeekday(){
+    public static function providerTestWeekday(){
         return array(
             [1], [2], [3], [4], [5], [6], [7]
         );
     }
 
-    /**
-     * @dataProvider providerTestWeekday
-     * @param $i
-     */
+    #[DataProvider('providerTestWeekday')]
     public function testSetWeekday($i){
         $d = new DateTime();
         $d->setWeekday($i);
@@ -153,10 +142,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($d->getDay() === 30);
     }
 
-    /**
-     * @dataProvider providerTestMonth
-     * @param $i
-     */
+    #[DataProvider('providerTestMonth')]
     public function testSetMonth($i){
         if($i <= 12){
             $d = new DateTime();
@@ -215,39 +201,26 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase {
      * data provider for day names
      * @return array
      */
-    public function providerDayNames(){
+    public static function providerDayNames(){
         return [
             [1, "monday"], [2, "tuesday"], [3, "wednesday"], [4, "thursday"], [5, "friday"], [6, "saturday"], [7, "sunday"]
         ];
     }
 
-    /**
-     * @dataProvider providerDayNames
-     * @param $i
-     * @param $name
-     */
+    #[DataProvider('providerDayNames')]
     public function testIsDay($i, $name){
         $d = new DateTime();
         $d->setWeekday($i);
         $this->assertTrue($d->isDay($name));
     }
-
-    /**
-     * data provider for month names
-     * @return array
-     */
-    public function providerMonthNames(){
+    public static function providerMonthNames(){
         return [
             [1, "january"], [2, "february"], [3, "march"], [4, "april"], [5, "may"], [6, "june"],
             [7, "july"], [8, "august"], [9, "september"], [10, "october"], [11, "november"], [12, "december"]
         ];
     }
 
-    /**
-     * @dataProvider providerMonthNames
-     * @param $i
-     * @param $name
-     */
+    #[DataProvider('providerMonthNames')]
     public function testIsMonth($i, $name){
         $d = new DateTime();
         $d->setMonth($i);
